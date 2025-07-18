@@ -1,0 +1,56 @@
+#!/bin/bash
+<< COMMENT
+  Copyright (c) 2022 hidao80
+  Released under the MIT license
+  https://opensource.org/licenses/mit-license.php
+COMMENT
+#
+# Message pre-process
+#
+msg=`cat $1 | sed -e '/^#/d'`
+while [ "`echo "$msg" | sed -n -e "1p"`" = "" ]; do
+    msg=`echo "$msg" | sed -e "1d"`
+done
+
+status=0
+
+# Prefix check
+if [[ ! "$msg" =~ ^(追加|修正|改善|更新|削除|改名|移動|交換|[Aa]dd|[Ff]ix|[Ii]mprove|[Uu]pdate|[Rr]emove|[Rr]ename|[Mm]ove|[Cc]hange): ]]; then
+    cat - << EOF
+コミットメッセージの見出しが不正です: $msg
+構文:
+    [Prefix] <Message body> <ticket_no> <working_hours>
+見出しとして使えるもの:
+    追加: または add:
+    修正: または fix:
+    改善: または improve:
+    更新: または update:
+    削除: または remove:
+    改名: または rename:
+    移動: または move:
+    交換: または change:
+EOF
+    status=1
+fi
+
+# Body check
+if [[ ! "$msg" =~ \#[0-9]+ ]]; then
+    cat - << EOF
+チケット番号が記入されていません: $msg
+ticket noの例:
+    #1234
+EOF
+    status=2
+fi
+
+if [[ ! "$msg" =~ @[0-9]+(\.[0-9]+)?h ]]; then
+    cat - << EOF
+作業時間が記入されていません: $msg
+working hoursの例:
+    @1.75h
+EOF
+    status=3
+fi
+
+cat storage/logs/phpstan.log
+exit $status

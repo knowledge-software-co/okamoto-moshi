@@ -1,0 +1,543 @@
+# https://taskfile.dev
+
+# Taskfileを扱う上での注意:
+# プログラミングをする上で大切なことは、なぜそれが動いているのかを理解することですが、Taskfileはそれを阻害します。
+# よってTaskfileは、どのようなコマンドが実行されるのかを理解できる者のみが使ってください。
+# 当ファイルの内容についての質問は受け付けないのでご注意ください。
+
+# 参考
+# Makefile卒業 & Taskfile入門: https://zenn.dev/gsy0911/articles/0a8e0e2156579d
+# MakefileをやめてTaskに移行しました: https://tech.macloud.jp/entry/2023/07/28/185145
+# Taskfileを使ってみよう: https://zenn.dev/remew/articles/introduce-taskfile
+# Windows でも go-task を便利に使う: https://zenn.dev/toruuetani/articles/4219808300f6ce
+
+version: '3'
+
+dotenv:
+    - '.env'
+
+vars:
+    GREETING: Hello, Laravel World!
+
+tasks:
+    default:
+        cmds:
+            - echo "{{.GREETING}}"
+        silent: true
+
+    up:
+        cmds:
+            - ./vendor/bin/sail up -d
+
+    # # シナリオ送信のために以下のコマンドを実行する（horizonを利用するため使用しない）
+    # queue-work:
+    #     cmds:
+    #         - ./vendor/bin/sail artisan queue:work redis --queue=line-messages,default
+
+    # シナリオ送信のために以下のコマンドを実行する（開発環境用）
+    horizon-up:
+        cmds:
+            - ./vendor/bin/sail artisan horizon
+
+    # シナリオ送信のために以下のコマンドを実行する（本番環境用）
+    horizon-up-production:
+        cmds:
+            - php artisan horizon
+
+    build:
+        cmds:
+            - ./vendor/bin/sail build --no-cache
+
+    create-project:
+        cmds:
+            - task: build
+            - task: up
+            - ./vendor/bin/sail composer create-project --prefer-dist laravel/laravel .
+            - docker compose exec laravel.test chmod -R 777 storage bootstrap/cache
+
+    install-recommend-packages:
+        cmds:
+            - ./vendor/bin/sail composer require doctrine/dbal
+            - ./vendor/bin/sail composer require --dev barryvdh/laravel-ide-helper
+            - ./vendor/bin/sail composer require --dev beyondcode/laravel-dump-server
+            - ./vendor/bin/sail composer require --dev barryvdh/laravel-debugbar
+            - ./vendor/bin/sail composer require --dev roave/security-advisories:dev-master
+            - ./vendor/bin/sail artisan vendor:publish --provider="BeyondCode\DumpServer\DumpServerServiceProvider"
+            - ./vendor/bin/sail artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+
+    init:
+        cmds:
+            - docker run --rm -u "{{shell `id -u`}}:{{shell `id -g`}}" -v "{{pwd}}":/var/www/html -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
+            - task: create-test-env
+            - task: create-dusk-env
+            - task: up
+            - ./vendor/bin/sail artisan key:generate
+            - ./vendor/bin/sail artisan storage:link
+            - ./vendor/bin/sail artisan migrate:fresh --seed
+            - task: cache
+            - git config --local core.hooksPath .githooks
+            - task: npm
+            - task: npm-dev
+
+    create-test-env:
+        cmds:
+            - sed -e "s/DB_DATABASE=.*/DB_DATABASE=testing/" ./.env > ./.env.testing
+            - sed -i.bak -e "s/APP_ENV=local/APP_ENV=testing/" ./.env.testing
+            - rm -f ./.env.testing.bak
+
+    create-dusk-env:
+        cmds:
+            - sed -e "s/DB_DATABASE=.*/DB_DATABASE=testing/" ./.env > ./.env.dusk.local
+            - sed -i.bak -e "s/APP_ENV=local/APP_ENV=testing/" ./.env.dusk.local
+            - rm -f ./.env.dusk.local.bak
+            - echo "DUSK_DRIVER_URL=http://selenium:4444/wd/hub" >> .env.dusk.local
+            - echo "TELESCOPE_ENABLED=false" >> .env.dusk.local
+            - echo "NODE_ENV=dusk" >> .env.dusk.local
+
+    remake:
+        cmds:
+            - task: destroy
+            - task: init
+
+    stop:
+        cmds:
+            - ./vendor/bin/sail stop
+
+    down:
+        cmds:
+            - ./vendor/bin/sail down
+
+    restart:
+        cmds:
+            - docker restart laravel.test
+
+    destroy:
+        cmds:
+            - docker-compose down --rmi all --volumes
+
+    destroy-volumes:
+        cmds:
+            - docker-compose down --volumes
+
+    ps:
+        cmds:
+            - docker-compose ps
+
+    logs:
+        cmds:
+            - docker-compose logs
+
+    logs-watch:
+        cmds:
+            - docker-compose logs --follow
+
+    shell:
+        cmds:
+            - ./vendor/bin/sail shell
+
+    shell-root:
+        cmds:
+            - ./vendor/bin/sail root-shell
+
+    mysql:
+        cmds:
+            - ./vendor/bin/sail mysql
+
+    migrate:
+        cmds:
+            - ./vendor/bin/sail artisan migrate
+
+    fresh:
+        cmds:
+            - ./vendor/bin/sail artisan migrate:fresh --seed
+            - task: cache-clear-cache
+            - rm -rf ./storage/app/public/profile-photos/*
+            - rm -rf ./docker/minio/images/*
+
+    seed:
+        cmds:
+            - ./vendor/bin/sail artisan db:seed
+
+    seed-postalcode:
+        cmds:
+            - ./vendor/bin/sail php artisan import:postal-code
+
+    rollback-test:
+        cmds:
+            - ./vendor/bin/sail artisan migrate:fresh
+            - ./vendor/bin/sail artisan migrate:refresh
+
+    command-list:
+        cmds:
+            - ./vendor/bin/sail artisan list
+
+    delete-all-rich-menus-for-line-server:
+        cmds:
+            - ./vendor/bin/sail artisan command:delete-all-rich-menus-for-line-server
+
+    tinker:
+        cmds:
+            - ./vendor/bin/sail artisan tinker
+
+    model:show:
+        cmds:
+            - ./vendor/bin/sail artisan model:show {{.CLI_ARGS}}
+
+    pint:
+        cmds:
+            - ./vendor/bin/sail php ./vendor/bin/pint
+
+    pint-test:
+        cmds:
+            - ./vendor/bin/sail php ./vendor/bin/pint --test -v
+
+    test:
+        cmds:
+            - task: npm-prod
+            - ./vendor/bin/sail artisan config:clear
+            - ./vendor/bin/sail artisan migrate:fresh --seed --env=testing
+            #	- ./vendor/bin/sail artisan test --env=testing
+            #	- ./vendor/bin/sail artisan test
+            - task: pest
+            - task: dusk
+            - task: phpstan
+            - task: vue-test
+            #	- ./vendor/bin/sail php ./vendor/bin/duster lint
+            - ./vendor/bin/sail php ./vendor/bin/duster lint --using="tlint,phpcs,php-cs-fixer"
+            - ./vendor/bin/sail npm run lint
+
+    pest:
+        cmds:
+            - ./vendor/bin/sail artisan config:clear
+            # - ./vendor/bin/sail php ./vendor/bin/pest
+            # - ./vendor/bin/sail artisan test --parallel
+            - ./vendor/bin/sail test
+
+    pest-coverage:
+        cmds:
+            - ./vendor/bin/sail artisan config:clear
+            - ./vendor/bin/sail php ./vendor/bin/pest --coverage --min=80
+
+    dusk:
+        preconditions:
+            # - test ! -f public/hot
+            - sh: '[ ! -f public/hot ]'
+              msg: "警告: 'public/hot' ファイルが存在します。ホットリロード(HMR)を終了してから実行してください。"
+        cmds:
+            - ./vendor/bin/sail artisan config:clear
+            - ./vendor/bin/sail artisan pest:dusk
+
+    phpstan:
+        cmds:
+            - ./vendor/bin/sail php ./vendor/bin/phpstan analyse -c phpstan.neon
+
+    duster-fix:
+        cmds:
+            - ./vendor/bin/sail php ./vendor/bin/duster fix
+
+    vue-test:
+        cmds:
+            - ./vendor/bin/sail npm test run
+
+    vue-test-coverage:
+        cmds:
+            - ./vendor/bin/sail npm run test:coverage
+
+    vue-format: # pretterは以下のコマンドを使用してください
+        cmds:
+            - ./vendor/bin/sail npm run format
+
+    optimize:
+        cmds:
+            - ./vendor/bin/sail artisan optimize
+            - ./vendor/bin/sail artisan view:cache
+
+    optimize-clear:
+        cmds:
+            - ./vendor/bin/sail artisan optimize:clear
+            - ./vendor/bin/sail artisan clear-compiled
+
+    cache-dev:
+        cmds:
+            - ./vendor/bin/sail composer dump-autoload
+            - task: optimize
+
+    cache:
+        cmds:
+            - ./vendor/bin/sail composer dump-autoload
+            - task: optimize
+
+    cache-clear:
+        cmds:
+            - task: optimize-clear
+            - task: npm-cache-clear
+            - ./vendor/bin/sail artisan modelCache:clear
+            # - ./vendor/bin/sail artisan horizon:clear
+            - ./vendor/bin/sail artisan telescope:clear
+            - ./vendor/bin/sail artisan clockwork:clean
+            - task: log-clear
+            - task: clockwork-log-clear
+
+    cache-clear-cache:
+        cmds:
+            - task: cache-clear
+            - task: cache
+
+    dump-autoload:
+        cmds:
+            - ./vendor/bin/sail composer dump-autoload
+
+    log-clear:
+        cmds:
+            - rm -rf ./storage/logs/*.log
+
+    clockwork-log-clear:
+        cmds:
+            - rm -rf ./storage/clockwork/*.json
+
+    composer-remove:
+        cmds:
+            - rm -rf ./vendor
+
+    composer-reinstall-dev:
+        cmds:
+            - task: composer-remove
+            - ./vendor/bin/sail composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist
+
+    composer-reinstall-prod:
+        cmds:
+            - task: composer-remove
+            - ./vendor/bin/sail composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
+
+    maintenance: # maintenance mode
+        cmds:
+            - ./vendor/bin/sail artisan down --render="errors::maintenance" --secret="kidsc0me"
+
+    maintenance-cancel:
+        cmds:
+            - ./vendor/bin/sail artisan up
+
+    npm:
+        cmds:
+            - task: npm-i
+
+    npm-i:
+        cmds:
+            - ./vendor/bin/sail npm i --legacy-peer-deps
+
+    npm-i-prod:
+        cmds:
+            - ./vendor/bin/sail npm i --production
+
+    npm-dev:
+        cmds:
+            - ./vendor/bin/sail npm run dev
+
+    npm-prod:
+        cmds:
+            - ./vendor/bin/sail npm run build
+
+    npm-watch:
+        cmds:
+            - ./vendor/bin/sail npm run watch
+
+    npm-watch-poll:
+        cmds:
+            - ./vendor/bin/sail npm run watch-poll
+
+    npm-hot:
+        cmds:
+            - ./vendor/bin/sail npm run hot
+
+    npm-cache-clear:
+        cmds:
+            - ./vendor/bin/sail npm cache verify
+
+    npm-refresh-dev:
+        cmds:
+            - rm -rf node_modules
+            - rm -f package-lock.json
+            - task: npm-cache-clear
+            - task: npm-i
+
+    npm-refresh-prod:
+        cmds:
+            - rm -rf node_modules
+            - rm -f package-lock.json
+            - task: npm-cache-clear
+            - task: npm-i
+
+    npm-update:
+        cmds:
+            - ./vendor/bin/sail root-shell
+            - npm install -g npm@latest
+
+    # npm-check-updates for local
+    # https://alpacat.com/posts/npm-check-updates
+    npm-package-update-check:
+        cmds:
+            - ncu
+    npm-package-edit:
+        cmds:
+            - ncu -u
+    npm-package-update:
+        cmds:
+            - task: npm-i
+
+    # 定期的な更新 (プロジェクトオーナーのみ実行すること)
+    periodic-updates-owner:
+        cmds:
+            - ./vendor/bin/sail composer update
+            - task: npm-package-update-check
+            - task: npm-package-edit
+            - task: npm-package-update
+
+    # 定期的な更新
+    periodic-updates:
+        cmds:
+            - ./vendor/bin/sail npm i --legacy-peer-deps
+            - ./vendor/bin/sail composer install
+
+    yarn:
+        cmds:
+            - ./vendor/bin/sail yarn
+
+    yarn-install:
+        cmds:
+            - task: yarn
+
+    yarn-dev:
+        cmds:
+            - docker compose exec web yarn dev
+
+    yarn-watch:
+        cmds:
+            - docker compose exec web yarn watch
+
+    yarn-watch-poll:
+        cmds:
+            - docker compose exec web yarn watch-poll
+
+    yarn-hot:
+        cmds:
+            - docker compose exec web yarn hot
+
+    redis:
+        cmds:
+            - docker compose exec redis redis-cli
+
+    ide-helper:
+        cmds:
+            - ./vendor/bin/sail artisan clear-compiled
+            - ./vendor/bin/sail artisan ide-helper:generate
+            - ./vendor/bin/sail artisan ide-helper:meta
+            - ./vendor/bin/sail artisan ide-helper:models --nowrite
+
+    route-list:
+        cmds:
+            - ./vendor/bin/sail artisan route:list
+
+    pull:
+        cmds:
+            - git checkout develop
+            - git pull origin develop
+            - git checkout user/kkimura
+            - git merge develop
+
+    run-storybook:
+        cmds:
+            - ./vendor/bin/sail npm run storybook
+
+    run-npm:
+        cmds:
+            - ./vendor/bin/sail npm run
+
+    filament-resource:
+        cmds:
+            - ./vendor/bin/sail artisan make:filament-resource User --generate --soft-deletes --view
+
+    scribe-generate:
+        cmds:
+            - ./vendor/bin/sail artisan scribe:generate
+
+    schemaspy-recreate:
+        cmds:
+            - ./vendor/bin/sail up schemaspy
+
+    act:
+        cmds:
+            - act pull_request --container-architecture linux/amd64
+
+    create-self-signed-cert:
+        cmds:
+            - openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout domain.key -out signed.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost" -addext "extendedKeyUsage=serverAuth"
+
+    # memo for aws
+    aws-mysql:
+        cmds:
+            - mysql -h awseb-e-ybfpuhjhkg-stack-awsebrdsdatabase-i6ro6cllvqtq.c5de3brr5n1w.ap-northeast-3.rds.amazonaws.com -P 3306 -u root -p
+            - select * from ebdb.users where email = sekainotacchan@gmail.com;
+    aws-fresh:
+        cmds:
+            - sudo -u webapp php -d memory_limit=-1 artisan migrate:fresh --seed
+    aws-migrate:
+        cmds:
+            - sudo -u webapp php -d memory_limit=-1 artisan migrate
+    aws-composer-v:
+        cmds:
+            - sudo -u webapp /usr/bin/composer.phar -v
+    aws-composer-cache:
+        cmds:
+            - sudo -u webapp php artisan cache:clear
+            - sudo -u webapp /usr/bin/composer.phar dump-autoload
+            - sudo -u webapp php artisan config:cache
+
+    zip-aws:
+        cmds:
+            - zip ../laravel-default.zip -r * .[^.]* -x "vendor/*" "node_modules/*" "__MACOSX/\*" "*.DS_Store"
+
+    # aws development env
+    remake-dev:
+        cmds:
+            - task: cache-clear
+            - cp -f .env.development .env
+            - task: cache
+            - task: npm-refresh-dev
+            - task: npm-dev
+            - task: log-clear
+            - task: clockwork-log-clear
+            - zip ../laravel-dev.zip -r * .[^.]* -x "vendor/*" "__MACOSX/\*" "*.DS_Store" ".schemaspy/*" ".scribe/*" "docs/*"
+
+    remake-staging:
+        cmds:
+            - task: cache-clear
+            - task: log-clear
+            - cp -f .env.staging .env
+            - task: cache
+            - task: npm-refresh-dev
+            - task: npm-dev
+            - zip ../laravel-staging.zip -r * .[^.]* -x "vendor/*" "__MACOSX/\*" "*.DS_Store" ".schemaspy/*" ".scribe/*" "docs/*"
+
+    remake-production:
+        cmds:
+            - task: cache-clear
+            - cp -f .env .env.bak
+            - cp -f .env.production .env
+            - task: cache
+            - rm -rf ./public/hot
+            - task: npm-refresh-prod
+            - task: npm-prod
+            - task: log-clear
+            - task: clockwork-log-clear
+            # - rm -rf ./storage/app/public/line-rich-menus/*
+            - zip ../laravel-prod.zip -r * .[^.]* -x "vendor/*" "__MACOSX/\*" "*.DS_Store" ".schemaspy/*" ".scribe/*" "docs/*"
+            - cp -f .env.bak .env
+            - rm -f .env.bak
+            - task: cache
+
+    remake-local:
+        cmds:
+            - task: cache-clear
+            - task: cache
+            - task: npm-refresh-dev
+            - task: npm-dev

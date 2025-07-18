@@ -1,0 +1,201 @@
+.algolia [command-root] {
+  padding: 8px;
+}
+.algolia [command-input] {
+  font-family: var(--font-sans);
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  outline: none;
+  background: var(--bg);
+  color: var(--gray12);
+  border-bottom: 1px solid var(--gray6);
+  border-radius: 4px;
+  caret-color: var(--vcp-c-brand);
+  margin: 0;
+  border: 1px solid var(--vcp-c-brand);
+}
+.algolia [command-input]::placeholder {
+  color: var(--gray9);
+}
+.algolia [command-list] {
+  height: var(--command-list-height);
+  max-height: 360px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  /* transition: 10ms ease; */
+  transition-property: height;
+}
+.algolia [command-item] {
+  position: relative;
+  content-visibility: auto;
+  cursor: pointer;
+  height: 56px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0px 16px;
+  color: var(--gray12);
+  user-select: none;
+  will-change: background, color;
+  /* transition: all 15ms ease; */
+  transition-property: none;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+.algolia [command-item]:first-child {
+  margin-top: 0px;
+}
+.algolia [command-item][aria-selected=true], .algolia [command-item]:hover {
+  background: var(--vcp-c-brand);
+  color: #fff;
+}
+.algolia [command-item][aria-selected=true] svg, .algolia [command-item]:hover svg {
+  color: #fff;
+}
+.algolia [command-item][aria-selected=true] [command-linear-shortcuts], .algolia [command-item]:hover [command-linear-shortcuts] {
+  display: flex;
+  margin-left: auto;
+  gap: 8px;
+}
+.algolia [command-item][aria-selected=true] [command-linear-shortcuts] kbd, .algolia [command-item]:hover [command-linear-shortcuts] kbd {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--gray11);
+}
+.algolia [command-item][aria-disabled=true] {
+  color: var(--gray8);
+  cursor: not-allowed;
+}
+.algolia [command-item]:active {
+  transition-property: background;
+  background: var(--gray4);
+}
+.algolia [command-item] svg {
+  width: 16px;
+  height: 16px;
+  color: var(--gray10);
+}
+.algolia [command-empty=""] {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  white-space: pre-wrap;
+  color: var(--gray11);
+}
+.algolia [command-dialog-mask] {
+  background-color: rgba(75, 75, 75, 0.8);
+}
+.algolia [command-dialog-header] {
+  padding: 12px;
+}
+.algolia [command-dialog-body] {
+  padding: 0 12px 12px;
+}
+.algolia [command-dialog-footer] {
+  align-items: center;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 -1px 0 0 #e0e3e8, 0 -3px 6px 0 rgba(69, 98, 155, 0.12);
+  display: flex;
+  flex-direction: row-reverse;
+  flex-shrink: 0;
+  height: 44px;
+  justify-content: space-between;
+  padding: 0 12px;
+  position: relative;
+  user-select: none;
+  width: 100%;
+  z-index: 300;
+}
+.algolia [command-group-heading] {
+  color: var(--vcp-c-brand);
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0 -4px;
+  padding: 8px 4px 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+.algolia .command-palette-commands {
+  color: var(--docsearch-muted-color);
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.algolia .command-palette-commands li {
+  display: flex;
+  align-items: center;
+}
+.algolia .command-palette-commands li:not(:last-of-type) {
+  margin-right: 0.8em;
+}
+.algolia .command-palette-logo a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.algolia .command-palette-logo svg {
+  height: 24px;
+  width: 24px;
+}
+.algolia .command-palette-commands-key {
+  align-items: center;
+  background: var(--gray3);
+  border-radius: 2px;
+  display: flex;
+  height: 18px;
+  justify-content: center;
+  margin-right: 0.4em;
+  padding: 0 0 1px;
+  color: var(--gray11);
+  border: 0;
+  width: 20px;
+}
+
+.dark .algolia [command-dialog-footer] {
+  box-shadow: none;
+}
+
+.command-dialog-enter-active,
+.command-dialog-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.command-dialog-enter-from,
+.command-dialog-leave-to {
+  opacity: 0;
+}
+
+.command-dialog-enter-active {
+  /* transition-duration: 0.5s; */
+}
+
+.command-dialog-enter-active [command-dialog-wrapper] {
+  /* transition-delay: 0.2s; */
+}
+
+.command-dialog-enter-from [command-dialog-wrapper],
+.command-dialog-leave-to [command-dialog-wrapper] {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+
+.command-dialog-enter-active [command-dialog-wrapper] {
+  /* transition: transform ease-out 0.3s; */
+}
+
+.command-dialog-enter-to [command-dialog-wrapper],
+.command-dialog-leave-from [command-dialog-wrapper] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.command-dialog-leave-active [command-dialog-wrapper] {
+  /* transition: transfrom ease-in 0.2s; */
+}

@@ -1,0 +1,53 @@
+name: 機能要望
+description: 機能追加・削減などを行いたい時にはこちら
+title: 'Feature: '
+labels: ["feature"]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: |
+        概要を記載してください。
+    validations:
+      required: true
+  - type: input
+    id: due_date
+    attributes:
+      label: 期限
+      description: |
+        期限を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: page
+    attributes:
+      label: 該当ページ
+      description: |
+        該当ページを記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 背景と目的
+      description: |
+        背景と目的を記載してください。
+  - type: textarea
+    id: goal
+    attributes:
+      label: 最終的なゴール
+      description: |
+        最終的なゴールを記載してください。
+  - type: textarea
+    id: specification
+    attributes:
+      label: 仕様
+      description: |
+        仕様を記載してください。
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考
+      description: |
+        参考になるリンクなどを記載してください。

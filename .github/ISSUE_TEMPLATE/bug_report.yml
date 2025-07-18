@@ -1,0 +1,47 @@
+name: バグ報告
+description: 不具合報告はこちら
+title: 'Bug: '
+labels: ['bug']
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: |
+        不具合の概要を記載してください。
+        見た目に関係する場合は、スクリーンショット等を貼り付けてください。
+    validations:
+      required: true
+  - type: dropdown
+    id: system
+    attributes:
+      label: どのシステムで問題が発生しましたか？
+      multiple: true
+      options:
+        - MacOS (OSX)
+        - Windows
+        - Linux
+        - Other
+  - type: textarea
+    id: process
+    attributes:
+      label: 再現手順
+      description: 不具合を再現させる手順を記載してください。
+      value: |
+        1.
+        2.
+        3.
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 関連ログ出力
+      description: 関連するログ出力をコピー＆ペーストしてください。
+      render: shell
+  - type: textarea
+    id: supplement
+    attributes:
+      label: 補足
+      description: その他補足事項があれば記載してください。

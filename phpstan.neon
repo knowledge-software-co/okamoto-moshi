@@ -1,0 +1,24 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    paths:
+        - app
+    # The level 9 is the highest level
+    level: 5
+    phpVersion: 80200 # PHP 8.2
+    ignoreErrors:
+        - '#Unsafe usage of new static#'
+        # 問題ないマジックメソッドの除外. (https://qiita.com/miki-yoji/items/fb22f93149bc86e8ef29)
+        - '#Access to an undefined property App\\Models\\(.*)created_at#'
+        - '#Access to an undefined property App\\Models\\(.*)updated_at#'
+        - '#Access to an undefined property App\\Models\\(.*)deleted_at#'
+    excludePaths:
+        #- ./*/*/FileToBeExcluded.php
+        - ./app/Actions/Fortify/*
+        - ./app/Actions/Jetstream/*
+        - ./app/Services/SequenceService.php
+        - ./app/Traits/InertiaTable/InertiaTable.php
+    #checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false

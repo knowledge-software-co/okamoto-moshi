@@ -1,0 +1,57 @@
+#!/bin/bash
+<< COMMENT
+  Copyright (c) 2022 hidao80
+  Released under the MIT license
+  https://opensource.org/licenses/mit-license.php
+COMMENT
+
+php_target_files=`git diff --cached --name-only | docker compose exec -T laravel.test grep .php`
+js_target_files=`git diff --cached --name-only | grep ".js\|.vue\|.jsx\|.tsx\|.ts\|.json\|.html\|.twig"`
+phpcs=`./vendor/bin/sail composer global config bin-dir --absolute 2> /dev/null`/phpcs
+phpstan=`./vendor/bin/sail composer global config bin-dir --absolute 2> /dev/null`/phpstan
+# viewer=code
+
+if [ -e ./phpcs.xml ]; then
+    # Defaults to what is in the home directory
+    phpcs_ruleset=~/phpcs.xml
+else
+    # Use what is in the root of the repository.
+    phpcs_ruleset=./phpcs.xml
+fi
+
+if [ -e ./storage/logs ]; then
+    # for Laravel
+    # phpstan_extension="-c `composer global config home --absolute 2> /dev/null`/vendor/larastan/larastan/extension.neon"
+    phpstan_extension="-c `./vendor/bin/sail composer global config home --absolute 2> /dev/null`phpstan.neon"
+    output=./storage/logs/git_hook.log
+else
+    # for non-Laravel
+    phpstan_extension=""
+    output=./git_hook.log
+fi
+
+# clear pre-commit log
+echo "" > $output
+
+# If there are no js/json files, exit
+if [ -z "$js_target_files" ]; then
+    echo "[eslint] js/json files not found." >> $output 2>&1
+else
+    echo "[eslint] running..." >> $output 2>&1
+    ./vendor/bin/sail npm run lint $js_target_files >> $output 2>&1
+fi
+
+# If there are no PHP files, exit
+if [ -z "$php_target_files" ]; then
+    echo "[larastan] php files not found." >> $output 2>&1
+else
+    echo "[phpcs] running..." >> $output 2>&1
+    $phpcs --standard=$phpcs_ruleset $php_target_files >> $output 2>&1
+
+    echo "[larastan] running..." >> $output 2>&1
+    ./vendor/bin/sail php -d memory_limit=-1 $phpstan analyse -l 5 $phpstan_extension $php_target_files >> $output 2>&1
+fi
+
+# Open the log in some editor.
+# $viewer $output
+cat $output

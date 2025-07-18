@@ -1,0 +1,85 @@
+name: CI
+
+on: ['push', 'pull_request']
+
+jobs:
+    laravel-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: cp .env.ci
+              run: cp .env.ci .env
+
+            - name: set ngrok auth to .env
+              run: |
+                  echo "NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+                  echo "NGROK_DOMAIN=${{ vars.NGROK_DOMAIN }}" >> .env
+                  echo "APP_URL=${{ vars.APP_URL }}" >> .env
+
+            - name: set stripe auth to .env
+              run: |
+                  echo "STRIPE_KEY=${{ secrets.STRIPE_KEY }}" >> .env
+                  echo "STRIPE_SECRET=${{ secrets.STRIPE_SECRET }}" >> .env
+                  echo "STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}" >> .env
+
+            - name: cp .env.testing
+              run: |
+                  sed -e "s/DB_DATABASE=.*/DB_DATABASE=testing/" ./.env > ./.env.testing
+                  sed -i.bak -e "s/APP_ENV=local/APP_ENV=testing/" ./.env.testing
+                  rm -f ./.env.testing.bak
+
+            - name: cp .env.dusk.local
+              run: |
+                  sed -e "s/DB_DATABASE=.*/DB_DATABASE=testing/" ./.env > ./.env.dusk.local
+                  sed -i.bak -e "s/APP_ENV=local/APP_ENV=testing/" ./.env.dusk.local
+                  rm -f ./.env.dusk.local.bak
+
+                  echo "DUSK_DRIVER_URL=http://selenium:4444/wd/hub" >> .env.dusk.local
+                  echo "TELESCOPE_ENABLED=false" >> .env.dusk.local
+                  echo "NODE_ENV=dusk" >> .env.dusk.local
+
+            - name: composer install
+              run: docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html laravelsail/php84-composer:latest composer install --ignore-platform-reqs
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+
+            - name: build laravel
+              run: ./vendor/bin/sail build --no-cache
+
+            - name: start
+              run: ./vendor/bin/sail up -d
+
+            - name: npm install
+              run: |
+                  docker exec -u root knsw-portal-laravel.test-1 chown -R sail:sail /var/www/html
+                  ./vendor/bin/sail npm install --legacy-peer-deps
+
+            - name: storage 777
+              run: docker exec -u root knsw-portal-laravel.test-1 chmod -R 777 storage bootstrap/cache .env .env.testing
+
+            - name: generate key
+              run: ./vendor/bin/sail artisan key:generate
+
+            # - name: storage link
+            #   run: ./vendor/bin/sail artisan storage:link
+
+            - name: migrate
+              run: ./vendor/bin/sail artisan migrate:fresh --seed
+
+            - name: get ngrok url
+              run: sh ./shell/up.sh
+
+            # - name: cache
+            #   run: make cache
+
+            - name: build
+              run: ./vendor/bin/sail npm run build
+
+            - name: test
+              # run: ./vendor/bin/sail test
+              run: make test

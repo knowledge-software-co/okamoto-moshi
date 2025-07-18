@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="laravel" schema="laravel" type="MySQL - 8.0.32">
+   <tables>
+      <table catalog="laravel" name="cache" numRows="6" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="key" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="value" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="expiration" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="cache_locks" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="key" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="expiration" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="companies" numRows="101" remarks="会社マスタ" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="会社ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="company_id" foreignKey="sequences_company_id_foreign" implied="false" onDeleteCascade="false" table="sequences"/>
+            <child catalog="laravel" column="company_id" foreignKey="users_company_id_foreign" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="会社名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="representative" nullable="true" remarks="代表者名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="phone" nullable="true" remarks="電話番号" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="address" nullable="true" remarks="住所" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="comment" nullable="true" remarks="コメント" size="2000" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="advertising_payment_date" nullable="true" remarks="広告費支払日" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="point" nullable="true" remarks="ポイント" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="is_paid" nullable="false" remarks="支払済フラグ: 0:未払い, 1:支払済み" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="failed_jobs" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="uuid" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="connection" nullable="false" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="queue" nullable="false" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="payload" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="exception" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="6" name="failed_at" nullable="false" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="failed_jobs_uuid_unique" unique="true">
+            <column ascending="true" name="uuid"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="job_batches" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="total_jobs" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="pending_jobs" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="failed_jobs" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="failed_job_ids" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="options" nullable="true" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="cancelled_at" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="created_at" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="finished_at" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="jobs" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="queue" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="payload" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="attempts" nullable="false" remarks="" size="3" type="TINYINT UNSIGNED" typeCode="-6"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="reserved_at" nullable="true" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="available_at" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="created_at" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="jobs_queue_index" unique="false">
+            <column ascending="true" name="queue"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="migrations" numRows="17" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="migration" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="batch" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="model_has_permissions" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="permission_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="model_has_permissions_permission_id_foreign" implied="false" onDeleteCascade="true" table="permissions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="model_type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="model_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <primaryKey column="permission_id" sequenceNumberInPK="1"/>
+         <primaryKey column="model_id" sequenceNumberInPK="2"/>
+         <primaryKey column="model_type" sequenceNumberInPK="3"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="permission_id"/>
+            <column ascending="true" name="model_id"/>
+            <column ascending="true" name="model_type"/>
+         </index>
+         <index name="model_has_permissions_model_id_model_type_index" unique="false">
+            <column ascending="true" name="model_id"/>
+            <column ascending="true" name="model_type"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="model_has_roles" numRows="37" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="role_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="model_has_roles_role_id_foreign" implied="false" onDeleteCascade="true" table="roles"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="model_type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="model_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <primaryKey column="role_id" sequenceNumberInPK="1"/>
+         <primaryKey column="model_id" sequenceNumberInPK="2"/>
+         <primaryKey column="model_type" sequenceNumberInPK="3"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="role_id"/>
+            <column ascending="true" name="model_id"/>
+            <column ascending="true" name="model_type"/>
+         </index>
+         <index name="model_has_roles_model_id_model_type_index" unique="false">
+            <column ascending="true" name="model_id"/>
+            <column ascending="true" name="model_type"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="password_reset_tokens" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="email" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12">
+            <child catalog="laravel" column="email" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="profiles"/>
+            <child catalog="laravel" column="email" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="token" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="email" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="permissions" numRows="22" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="permission_id" foreignKey="model_has_permissions_permission_id_foreign" implied="false" onDeleteCascade="true" table="model_has_permissions"/>
+            <child catalog="laravel" column="permission_id" foreignKey="role_has_permissions_permission_id_foreign" implied="false" onDeleteCascade="true" table="role_has_permissions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="company_id" nullable="false" remarks="会社ID" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="権限の説明" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="guard_name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="permissions_name_guard_name_unique" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="guard_name"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="personal_access_tokens" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="tokenable_type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="tokenable_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="token" nullable="false" remarks="" size="64" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="abilities" nullable="true" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="last_used_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="expires_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="personal_access_tokens_token_unique" unique="true">
+            <column ascending="true" name="token"/>
+         </index>
+         <index name="personal_access_tokens_tokenable_type_tokenable_id_index" unique="false">
+            <column ascending="true" name="tokenable_type"/>
+            <column ascending="true" name="tokenable_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="prefecture_regions" numRows="8" remarks="地方マスタ" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="地方ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="prefecture_region_id" foreignKey="prefectures_prefecture_region_id_foreign" implied="false" onDeleteCascade="false" table="prefectures"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="地方名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="name_kana" nullable="false" remarks="地方名カナ" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="prefectures" numRows="47" remarks="都道府県マスタ" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="都道府県ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="prefecture_id" foreignKey="user_locations_prefecture_id_foreign" implied="false" onDeleteCascade="false" table="user_locations"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="prefecture_region_id" nullable="false" remarks="地方ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="prefectures_prefecture_region_id_foreign" implied="false" onDeleteCascade="false" table="prefecture_regions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="name" nullable="false" remarks="地方名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="name_kana" nullable="false" remarks="地方名カナ" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="prefectures_prefecture_region_id_foreign" unique="false">
+            <column ascending="true" name="prefecture_region_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="profiles" numRows="7" remarks="プロフィールテーブル" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="プロフィールID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="profile_id" foreignKey="users_profile_id_foreign" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="last_name" nullable="false" remarks="姓" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="first_name" nullable="false" remarks="名" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="last_name_kana" nullable="true" remarks="セイ" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="first_name_kana" nullable="true" remarks="メイ" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="date_of_birth" nullable="true" remarks="生年月日" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="sex_code" nullable="false" remarks="性別コード ISO 5218: 0=not known（不明）、1=male（男性）、2=female（女性）、9=not applicable（適用不能）" size="1" type="enum('0', '1', '2', '9')" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="email" nullable="true" remarks="メールアドレス" size="255" type="VARCHAR" typeCode="12">
+            <parent catalog="laravel" column="email" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="password_reset_tokens"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="phone" nullable="true" remarks="電話番号" size="16" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="address" nullable="true" remarks="住所（レガシー）" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="postal_code" nullable="true" remarks="郵便番号" size="10" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="prefecture" nullable="true" remarks="都道府県" size="20" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="city" nullable="true" remarks="市区町村" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="street_address" nullable="true" remarks="町名番地等" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="profiles_email_unique" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="pulse_aggregates" numRows="55" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="bucket" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="period" nullable="false" remarks="" size="8" type="MEDIUMINT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="key" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="key_hash" nullable="true" remarks="" size="16" type="BINARY" typeCode="-2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="aggregate" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="2" id="7" name="value" nullable="false" remarks="" size="20" type="DECIMAL" typeCode="3"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="count" nullable="true" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="pulse_aggregates_bucket_period_type_aggregate_key_hash_unique" unique="true">
+            <column ascending="true" name="bucket"/>
+            <column ascending="true" name="period"/>
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="aggregate"/>
+            <column ascending="true" name="key_hash"/>
+         </index>
+         <index name="pulse_aggregates_period_bucket_index" unique="false">
+            <column ascending="true" name="period"/>
+            <column ascending="true" name="bucket"/>
+         </index>
+         <index name="pulse_aggregates_period_type_aggregate_bucket_index" unique="false">
+            <column ascending="true" name="period"/>
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="aggregate"/>
+            <column ascending="true" name="bucket"/>
+         </index>
+         <index name="pulse_aggregates_type_index" unique="false">
+            <column ascending="true" name="type"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="pulse_entries" numRows="37" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="timestamp" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="key" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="key_hash" nullable="true" remarks="" size="16" type="BINARY" typeCode="-2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="value" nullable="true" remarks="" size="19" type="BIGINT" typeCode="-5"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="pulse_entries_key_hash_index" unique="false">
+            <column ascending="true" name="key_hash"/>
+         </index>
+         <index name="pulse_entries_timestamp_index" unique="false">
+            <column ascending="true" name="timestamp"/>
+         </index>
+         <index name="pulse_entries_timestamp_type_key_hash_value_index" unique="false">
+            <column ascending="true" name="timestamp"/>
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="key_hash"/>
+            <column ascending="true" name="value"/>
+         </index>
+         <index name="pulse_entries_type_index" unique="false">
+            <column ascending="true" name="type"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="pulse_values" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="timestamp" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="key" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="key_hash" nullable="true" remarks="" size="16" type="BINARY" typeCode="-2"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="value" nullable="false" remarks="" size="16777215" type="MEDIUMTEXT" typeCode="-1"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="pulse_values_timestamp_index" unique="false">
+            <column ascending="true" name="timestamp"/>
+         </index>
+         <index name="pulse_values_type_index" unique="false">
+            <column ascending="true" name="type"/>
+         </index>
+         <index name="pulse_values_type_key_hash_unique" unique="true">
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="key_hash"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="role_has_permissions" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="permission_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="role_has_permissions_permission_id_foreign" implied="false" onDeleteCascade="true" table="permissions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="role_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="role_has_permissions_role_id_foreign" implied="false" onDeleteCascade="true" table="roles"/>
+         </column>
+         <primaryKey column="permission_id" sequenceNumberInPK="1"/>
+         <primaryKey column="role_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="permission_id"/>
+            <column ascending="true" name="role_id"/>
+         </index>
+         <index name="role_has_permissions_role_id_foreign" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="roles" numRows="4" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="role_id" foreignKey="model_has_roles_role_id_foreign" implied="false" onDeleteCascade="true" table="model_has_roles"/>
+            <child catalog="laravel" column="role_id" foreignKey="role_has_permissions_role_id_foreign" implied="false" onDeleteCascade="true" table="role_has_permissions"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="company_id" nullable="false" remarks="会社ID" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="description" nullable="true" remarks="役割の説明" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="guard_name" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="roles_name_guard_name_unique" unique="true">
+            <column ascending="true" name="name"/>
+            <column ascending="true" name="guard_name"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="sequences" numRows="4" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="key" nullable="false" remarks="" size="64" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="company_id" nullable="true" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="sequences_company_id_foreign" implied="false" onDeleteCascade="false" table="companies"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sequence" nullable="false" remarks="" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="sequences_company_id_foreign" unique="false">
+            <column ascending="true" name="company_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="sessions" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="true" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="ip_address" nullable="true" remarks="" size="45" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="user_agent" nullable="true" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="payload" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="last_activity" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="sessions_last_activity_index" unique="false">
+            <column ascending="true" name="last_activity"/>
+         </index>
+         <index name="sessions_user_id_index" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="subscription_items" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="subscription_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="stripe_id" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="stripe_product" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="stripe_price" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="quantity" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="subscription_items_stripe_id_unique" unique="true">
+            <column ascending="true" name="stripe_id"/>
+         </index>
+         <index name="subscription_items_subscription_id_stripe_price_index" unique="false">
+            <column ascending="true" name="subscription_id"/>
+            <column ascending="true" name="stripe_price"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="subscriptions" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="type" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="stripe_id" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="stripe_status" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="stripe_price" nullable="true" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="quantity" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="trial_ends_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="ends_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="subscriptions_stripe_id_unique" unique="true">
+            <column ascending="true" name="stripe_id"/>
+         </index>
+         <index name="subscriptions_user_id_stripe_status_index" unique="false">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="stripe_status"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="telescope_entries" numRows="209" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="sequence" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="uuid" nullable="false" remarks="" size="36" type="CHAR" typeCode="1">
+            <child catalog="laravel" column="entry_uuid" foreignKey="telescope_entries_tags_entry_uuid_foreign" implied="false" onDeleteCascade="true" table="telescope_entries_tags"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="batch_id" nullable="false" remarks="" size="36" type="CHAR" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="family_hash" nullable="true" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="4" name="should_display_on_index" nullable="false" remarks="" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="type" nullable="false" remarks="" size="20" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="content" nullable="false" remarks="" size="2147483647" type="LONGTEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <primaryKey column="sequence" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="sequence"/>
+         </index>
+         <index name="telescope_entries_batch_id_index" unique="false">
+            <column ascending="true" name="batch_id"/>
+         </index>
+         <index name="telescope_entries_created_at_index" unique="false">
+            <column ascending="true" name="created_at"/>
+         </index>
+         <index name="telescope_entries_family_hash_index" unique="false">
+            <column ascending="true" name="family_hash"/>
+         </index>
+         <index name="telescope_entries_type_should_display_on_index_index" unique="false">
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="should_display_on_index"/>
+         </index>
+         <index name="telescope_entries_uuid_unique" unique="true">
+            <column ascending="true" name="uuid"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="telescope_entries_tags" numRows="55" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="entry_uuid" nullable="false" remarks="" size="36" type="CHAR" typeCode="1">
+            <parent catalog="laravel" column="uuid" foreignKey="telescope_entries_tags_entry_uuid_foreign" implied="false" onDeleteCascade="true" table="telescope_entries"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="tag" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="entry_uuid" sequenceNumberInPK="1"/>
+         <primaryKey column="tag" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="entry_uuid"/>
+            <column ascending="true" name="tag"/>
+         </index>
+         <index name="telescope_entries_tags_tag_index" unique="false">
+            <column ascending="true" name="tag"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="telescope_monitoring" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="tag" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <primaryKey column="tag" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="tag"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="user_locations" numRows="21" remarks="ユーザー住所テーブル" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="ユーザー住所ID" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="true" remarks="ユーザーID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="user_locations_user_id_foreign" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="phone" nullable="true" remarks="電話番号" size="16" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="postal_code" nullable="true" remarks="郵便番号" size="7" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="prefecture_id" nullable="true" remarks="都道府県ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="user_locations_prefecture_id_foreign" implied="false" onDeleteCascade="false" table="prefectures"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="address1" nullable="true" remarks="市区町村" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="address2" nullable="true" remarks="ビル・マンション名・号室" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="comment" nullable="true" remarks="コメント" size="1000" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="is_default" nullable="false" remarks="既定値設定" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="user_locations_prefecture_id_foreign" unique="false">
+            <column ascending="true" name="prefecture_id"/>
+         </index>
+         <index name="user_locations_user_id_foreign" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table catalog="laravel" name="users" numRows="37" remarks="ユーザーマスタ" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="ユーザーID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <child catalog="laravel" column="user_id" foreignKey="user_locations_user_id_foreign" implied="false" onDeleteCascade="false" table="user_locations"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="uuid" nullable="false" remarks="ULID" size="26" type="CHAR" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="membership_number" nullable="true" remarks="会員番号" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="company_id" nullable="false" remarks="会社ID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="users_company_id_foreign" implied="false" onDeleteCascade="false" table="companies"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="profile_id" nullable="true" remarks="プロフィールID" size="20" type="BIGINT UNSIGNED" typeCode="-5">
+            <parent catalog="laravel" column="id" foreignKey="users_profile_id_foreign" implied="false" onDeleteCascade="false" table="profiles"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="email" nullable="false" remarks="メールアドレス" size="255" type="VARCHAR" typeCode="12">
+            <parent catalog="laravel" column="email" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="password_reset_tokens"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="email_verified_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="password" nullable="false" remarks="パスワード" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="member" digits="0" id="8" name="role" nullable="false" remarks="権限: system admin=システム管理者、admin=運営者、developer=開発者、member=ユーザー" size="12" type="enum('system admin', 'admin', 'developer', 'member')" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="unconfirmed" digits="0" id="9" name="is_approved" nullable="false" remarks="承認フラグ: unconfirmed=未確認、approved=承認、reject=却下" size="11" type="enum('unconfirmed', 'approved', 'reject')" typeCode="1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="remember_token" nullable="true" remarks="" size="100" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="profile_photo_path" nullable="true" remarks="" size="2048" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="last_login_at" nullable="true" remarks="最終ログイン時間" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="deleted_at" nullable="true" remarks="削除日" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="created_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="updated_at" nullable="true" remarks="" size="19" type="DATETIME" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="created_by" nullable="true" remarks="作成者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="updated_by" nullable="true" remarks="変更者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="deleted_by" nullable="true" remarks="削除者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="restored_by" nullable="true" remarks="復元者" size="10" type="INT UNSIGNED" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="exist" nullable="true" remarks="存在フラグ: 論理削除とユニーク制約を両立させるためのフラグ" size="1" type="BIT" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="21" name="stripe_id" nullable="true" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="pm_type" nullable="true" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="23" name="pm_last_four" nullable="true" remarks="" size="4" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="24" name="trial_ends_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="ftx_users_email" unique="false">
+            <column ascending="true" name="email"/>
+         </index>
+         <index name="users_company_id_foreign" unique="false">
+            <column ascending="true" name="company_id"/>
+         </index>
+         <index name="users_email_role_exist_unique" unique="true">
+            <column ascending="true" name="email"/>
+            <column ascending="true" name="role"/>
+            <column ascending="true" name="exist"/>
+         </index>
+         <index name="users_email_unique" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+         <index name="users_profile_id_foreign" unique="false">
+            <column ascending="true" name="profile_id"/>
+         </index>
+         <index name="users_stripe_id_index" unique="false">
+            <column ascending="true" name="stripe_id"/>
+         </index>
+         <index name="users_uuid_index" unique="false">
+            <column ascending="true" name="uuid"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,248 @@
+@startuml er-diagram
+' !define LIGHTBLUE
+' !includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+package "curva" as application_scheme <<Database>> {
+
+    entity companies {
+        + id <<PK>>
+        ---
+        - user_id <<FK>>
+    }
+
+    entity users {
+        + id <<PK>>
+        ---
+        name
+        email
+        password
+        role
+    }
+
+    users }o- companies
+
+    entity bank_account_information {
+        + id <<PK>>
+        ---
+        - user_id <<FK>>
+        bank_name
+        branch_name
+        account_type
+        account_number
+        account_holder
+    }
+
+    users --o{ bank_account_information
+
+    entity user_locations {
+        + id <<PK>>
+        ---
+        - user_id <<FK>>
+        phone
+        postal_code
+        prefecture_id
+        address1
+        address2
+        comment
+    }
+
+    user_locations }o- users
+
+    entity prefectures {
+        + id <<PK>>
+        ---
+        name
+    }
+
+    prefectures }o- user_locations
+
+    entity zoom_information {
+        一人のラボマスターが一つのzoom情報を持つ
+        ---
+        + id <<PK>>
+        ---
+        - user_id <<FK>>
+        zoom_id
+        zoom_password
+    }
+
+    users --o{ zoom_information
+
+    entity zoom_dates {
+        + id <<PK>>
+        ---
+        - zoom_information_id <<FK>>
+        title
+        zoom_date
+        zoom_time
+        zoom_url
+    }
+
+    zoom_information -- zoom_dates
+
+    entity line_accounts {
+        + id <<PK>>
+        ---
+        - company_id <<FK>>
+        line_user_id
+        channel_id
+        channel_secret
+        webhook_url
+        channel_access_token
+        basic_id
+        premium_id
+        line_login_channel_id
+        line_login_channel_secret
+    }
+
+    companies --o{ line_accounts
+
+    entity line_users {
+        + id <<PK>>
+        ---
+        - line_account_id <<FK>>
+        line_user_id
+        line_user_name
+        user_code
+        age
+        sex
+        real_name
+        phone
+        status
+        message
+        mode
+    }
+
+    line_accounts --o{ line_users
+
+    entity line_rich_menus {
+        + id <<PK>>
+        ---
+        - line_account_id <<FK>>
+        rich_menu_id
+        rich_menu_name
+        rich_menu_image_path
+        rich_menu_text
+        rich_menu_link_url
+        rich_menu_link_text
+    }
+
+    line_accounts --o{ line_rich_menus
+
+    entity line_rich_menu_actions {
+        + id <<PK>>
+        ---
+        - line_rich_menu_id <<FK>>
+        x
+        y
+        width
+        height
+        action_type
+        action_text
+        action_link_url
+        action_link_text
+    }
+
+    line_rich_menus --o{ line_rich_menu_actions
+
+    entity line_rich_menu_area_keeps {
+        + id <<PK>>
+        ---
+        - company_id <<FK>>
+        x
+        y
+        width
+        height
+    }
+
+    companies --o{ line_rich_menu_area_keeps
+
+    entity line_rich_menu_area_keep_details {
+        + id <<PK>>
+        ---
+        - line_rich_menu_area_keep_id <<FK>>
+        x
+        y
+        width
+        height
+    }
+
+    line_rich_menu_area_keeps --o{ line_rich_menu_area_keep_details
+
+    entity line_rich_menu_area_presets {
+        + id <<PK>>
+        ---
+        thumbnail_image_path
+        title
+        description
+        size
+        order
+    }
+
+    entity line_rich_menu_area_preset_details {
+        + id <<PK>>
+        ---
+        - line_rich_menu_area_preset_id <<FK>>
+        x
+        y
+        width
+        height
+        action_type
+        action_text
+        action_link_url
+        action_link_text
+        order
+    }
+
+    line_rich_menu_area_presets --o{ line_rich_menu_area_preset_details
+
+    entity line_liffs {
+        + id <<PK>>
+        ---
+        - line_account_id <<FK>>
+        title
+        endpoint_url
+    }
+
+    line_accounts --o{ line_liffs
+
+    entity line_carousels {
+        + id <<PK>>
+        ---
+        - line_user_id <<FK>>
+        carousel_id
+        target_carousel
+        member
+        image_path
+        title
+        description
+        button_type
+        button_color
+        label
+        after_click_contents
+    }
+
+    line_accounts --o{ line_carousels
+
+    entity stripe_accounts {
+        + id <<PK>>
+        ---
+        - company_id <<FK>>
+        stripe_id
+        stripe_secret
+        stripe_webhook_secret
+    }
+
+    companies --o{ stripe_accounts
+
+    entity payment_histories {
+        + id <<PK>>
+        ---
+        - stripe_account_id <<FK>>
+        - line_user_id <<FK>>
+    }
+
+    companies --o{ payment_histories
+}
+
+@enduml

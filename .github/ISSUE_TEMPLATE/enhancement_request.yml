@@ -1,0 +1,36 @@
+name: 改善・リファクタ
+description: 改善・リファクタはこちら
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景
+      description: どのような課題を抱えてissueを立てたのか、経緯や前提を記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: merit
+    attributes:
+      label: メリット
+      description: 改善することでどのようなメリットがあるのかを記載してください。
+    validations:
+      required: true
+  - type: textarea
+    id: do
+    attributes:
+      label: やること
+      description: このissueで取り組むことを記載してください。
+      value: |
+        - [ ]
+        - [ ]
+        - [ ]
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: supplement
+    attributes:
+      label: 補足
+      description: その他補足事項があれば記載してください。
+

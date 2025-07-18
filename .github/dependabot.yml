@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    reviewers:
+      - "kimura-kazuki"
+    labels:
+      - "アップデート対応"
+      - "php"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    reviewers:
+      - "kimura-kazuki"
+    labels:
+      - "アップデート対応"
+      - "javascript"
