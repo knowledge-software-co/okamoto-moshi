@@ -56,11 +56,11 @@ jobs:
 
             - name: npm install
               run: |
-                  docker exec -u root knsw-portal-laravel.test-1 chown -R sail:sail /var/www/html
+                  docker exec -u root okamoto-moshi-laravel.test-1 chown -R sail:sail /var/www/html
                   ./vendor/bin/sail npm install --legacy-peer-deps
 
             - name: storage 777
-              run: docker exec -u root knsw-portal-laravel.test-1 chmod -R 777 storage bootstrap/cache .env .env.testing
+              run: docker exec -u root okamoto-moshi-laravel.test-1 chmod -R 777 storage bootstrap/cache .env .env.testing
 
             - name: generate key
               run: ./vendor/bin/sail artisan key:generate

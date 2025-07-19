@@ -71,9 +71,9 @@ const submit = () => {
                     <InputError :message="form.errors.password" />
                 </div>
 
-                <div class="flex items-center justify-between" :tabindex="3">
+                <div class="flex items-center justify-between">
                     <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model:checked="form.remember" :tabindex="4" />
+                        <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
                         <span>{{ $t('Remember me') }}</span>
                     </Label>
                 </div>
@@ -84,7 +84,7 @@ const submit = () => {
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-muted-foreground text-center text-sm">
                 {{ $t("Don't have an account?") }}
                 <TextLink :href="route('register')" :tabindex="5">{{ $t('Sign up') }}</TextLink>
             </div>

@@ -1,11 +1,11 @@
 import vue from '@vitejs/plugin-vue';
-import autoprefixer from 'autoprefixer';
+// import autoprefixer from 'autoprefixer';
+import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
 import i18n from 'laravel-vue-i18n/vite';
 import fs from 'node:fs';
 import { resolve } from 'node:path';
 import path from 'path';
-import tailwindcss from 'tailwindcss';
 import { defineConfig, loadEnv } from 'vite';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -47,6 +47,7 @@ export default defineConfig({
                 },
             },
         }),
+        tailwindcss(),
         i18n(),
     ],
     resolve: {
@@ -55,9 +56,10 @@ export default defineConfig({
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
     },
-    css: {
-        postcss: {
-            plugins: [tailwindcss, autoprefixer],
-        },
-    },
+    // Viteが postcss.config.js を自動的に読み込むので以下はコメントアウト
+    // css: {
+    //     postcss: {
+    //         plugins: [tailwindcss, autoprefixer],
+    //     },
+    // },
 });

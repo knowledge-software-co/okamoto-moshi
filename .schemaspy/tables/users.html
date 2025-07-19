@@ -73,20 +73,7 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>users</h1><p><span id="recordNumber">37</span> rows</p><br />
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <i class="fa fa-file-text-o"></i>
-                            <h3 id="Description" class="box-title">Description</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div><!-- /.box-header -->
-                        <div class="box-body clearfix">
-                            <p>ユーザーマスタ</p>
-                        </div><!-- /.box-body -->
-                    </div>
+                    <h1>users</h1><p><span id="recordNumber">0</span> rows</p><br />
                 </section>
                 <!-- Main content -->
                 <section class="content">
@@ -130,23 +117,18 @@
                                     <td>null</td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="user_locations.user_id references users.id via user_locations_user_id_foreign"><a href='user_locations.html'>user_locations</a><span class='relatedKey'>.user_id</span></td>
-                                                <td class="constraint detail">user_locations_user_id_foreign</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td><p>ユーザーID</p></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="uuid">uuid</span></td>
-                                    <td>CHAR</td>
-                                    <td>26</td>
+                                    <td><span id="name">name</span></td>
+                                    <td>VARCHAR</td>
+                                    <td>255</td>
                                     <td title=''></td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -158,68 +140,7 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td><p>ULID</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="membership_number">membership_number</span></td>
-                                    <td>INT UNSIGNED</td>
-                                    <td>10</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>会員番号</p></td>
-                                </tr>
-                                <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="company_id">company_id</span></td>
-                                    <td>BIGINT UNSIGNED</td>
-                                    <td>20</td>
-                                    <td title=''></td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="users.company_id references companies.id via users_company_id_foreign"><a href='companies.html'>companies</a><span class='relatedKey'>.id</span></td>
-                                                <td class="constraint detail">users_company_id_foreign</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td><p>会社ID</p></td>
-                                </tr>
-                                <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="profile_id">profile_id</span></td>
-                                    <td>BIGINT UNSIGNED</td>
-                                    <td>20</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="users.profile_id references profiles.id via users_profile_id_foreign"><a href='profiles.html'>profiles</a><span class='relatedKey'>.id</span></td>
-                                                <td class="constraint detail">users_profile_id_foreign</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td><p>プロフィールID</p></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="email">email</span></td>
@@ -241,7 +162,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td><p>メールアドレス</p></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td><span id="email_verified_at">email_verified_at</span></td>
@@ -275,41 +196,7 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td><p>パスワード</p></td>
-                                </tr>
-                                <tr>
-                                    <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="role">role</span></td>
-                                    <td>enum(&#39;system admin&#39;, &#39;admin&#39;, &#39;developer&#39;, &#39;member&#39;)</td>
-                                    <td>12</td>
-                                    <td title=''></td>
-                                    <td title=''></td>
-                                    <td>member</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>権限: system admin=システム管理者、admin=運営者、developer=開発者、member=ユーザー</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="is_approved">is_approved</span></td>
-                                    <td>enum(&#39;unconfirmed&#39;, &#39;approved&#39;, &#39;reject&#39;)</td>
-                                    <td>11</td>
-                                    <td title=''></td>
-                                    <td title=''></td>
-                                    <td>unconfirmed</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>承認フラグ: unconfirmed=未確認、approved=承認、reject=却下</p></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td><span id="remember_token">remember_token</span></td>
@@ -329,59 +216,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="profile_photo_path">profile_photo_path</span></td>
-                                    <td>VARCHAR</td>
-                                    <td>2048</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="last_login_at">last_login_at</span></td>
-                                    <td>TIMESTAMP</td>
-                                    <td>19</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>最終ログイン時間</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="deleted_at">deleted_at</span></td>
-                                    <td>DATETIME</td>
-                                    <td>19</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>削除日</p></td>
-                                </tr>
-                                <tr>
                                     <td><span id="created_at">created_at</span></td>
-                                    <td>DATETIME</td>
+                                    <td>TIMESTAMP</td>
                                     <td>19</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -398,159 +234,6 @@
                                 </tr>
                                 <tr>
                                     <td><span id="updated_at">updated_at</span></td>
-                                    <td>DATETIME</td>
-                                    <td>19</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="created_by">created_by</span></td>
-                                    <td>INT UNSIGNED</td>
-                                    <td>10</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>作成者</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="updated_by">updated_by</span></td>
-                                    <td>INT UNSIGNED</td>
-                                    <td>10</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>変更者</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="deleted_by">deleted_by</span></td>
-                                    <td>INT UNSIGNED</td>
-                                    <td>10</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>削除者</p></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="restored_by">restored_by</span></td>
-                                    <td>INT UNSIGNED</td>
-                                    <td>10</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>復元者</p></td>
-                                </tr>
-                                <tr>
-                                    <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="exist">exist</span></td>
-                                    <td>BIT</td>
-                                    <td>1</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td><p>存在フラグ: 論理削除とユニーク制約を両立させるためのフラグ</p></td>
-                                </tr>
-                                <tr>
-                                    <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="stripe_id">stripe_id</span></td>
-                                    <td>VARCHAR</td>
-                                    <td>255</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="pm_type">pm_type</span></td>
-                                    <td>VARCHAR</td>
-                                    <td>255</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="pm_last_four">pm_last_four</span></td>
-                                    <td>VARCHAR</td>
-                                    <td>4</td>
-                                    <td title='nullable'>√</td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="trial_ends_at">trial_ends_at</span></td>
                                     <td>TIMESTAMP</td>
                                     <td>19</td>
                                     <td title='nullable'>√</td>
@@ -603,46 +286,10 @@
                                     <td>id</td>
                                 </tr>
                                 <tr>
-                                    <td title='Indexed'>ftx_users_email</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>email</td>
-                                </tr>
-                                <tr>
-                                    <td title='Indexed'>users_company_id_foreign</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>company_id</td>
-                                </tr>
-                                <tr>
-                                    <td class='uniqueKey' title='Unique Key'><i class='icon ion-key iconkey'></i> users_email_role_exist_unique</td>
-                                    <td>Must be unique</td>
-                                    <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-                                    <td>email + role + exist</td>
-                                </tr>
-                                <tr>
                                     <td class='uniqueKey' title='Unique Key'><i class='icon ion-key iconkey'></i> users_email_unique</td>
                                     <td>Must be unique</td>
                                     <td><span title='Ascending'>Asc</span></td>
                                     <td>email</td>
-                                </tr>
-                                <tr>
-                                    <td title='Indexed'>users_profile_id_foreign</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>profile_id</td>
-                                </tr>
-                                <tr>
-                                    <td title='Indexed'>users_stripe_id_index</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>stripe_id</td>
-                                </tr>
-                                <tr>
-                                    <td title='Indexed'>users_uuid_index</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>uuid</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -662,52 +309,21 @@
                                 <h5>Close relationships within degrees of separation</h5>
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
-                                    <li class=""><a href="#twodegreesDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two degrees</a></li>
                                     <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
-                                    <li class=""><a href="#twoimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="user_locations.html" target="_top" title="user_locations" alt="" coords="720,5,913,181">
-<area shape="rect" id="node2" href="users.html" target="_top" title="users" alt="" coords="309,32,676,835">
-<area shape="rect" id="node3" href="companies.html" target="_top" title="companies" alt="" coords="5,71,265,188">
-<area shape="rect" id="node4" href="profiles.html" target="_top" title="profiles" alt="" coords="45,205,225,352">
+<area shape="rect" id="node1" href="users.html" target="_top" title="users" alt="" coords="5,5,339,309">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/users.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
-                                    <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
-                                        <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="sequences.html" target="_top" title="sequences" alt="" coords="411,5,574,93">
-<area shape="rect" id="node2" href="companies.html" target="_top" title="companies" alt="" coords="5,49,265,167">
-<area shape="rect" id="node3" href="user_locations.html" target="_top" title="user_locations" alt="" coords="720,477,913,653">
-<area shape="rect" id="node4" href="prefectures.html" target="_top" title="prefectures" alt="" coords="407,931,579,1019">
-<area shape="rect" id="node5" href="users.html" target="_top" title="users" alt="" coords="309,111,676,913">
-<area shape="rect" id="node6" href="profiles.html" target="_top" title="profiles" alt="" coords="45,231,225,377">
-</map>
-                                        <a name='diagram'><img id="twodegreesDegreeImg" src="../diagrams/tables/users.2degrees.png" usemap="#twoDegreesRelationshipsDiagram" class="diagram" border="0" align="left"></a>
-                                    </div>
                                     <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="profiles.html" target="_top" title="profiles" alt="" coords="355,152,535,299">
-<area shape="rect" id="node2" href="password_reset_tokens.html" target="_top" title="password_reset_tokens" alt="" coords="5,229,271,347">
-<area shape="rect" id="node3" href="user_locations.html" target="_top" title="user_locations" alt="" coords="1029,5,1223,181">
-<area shape="rect" id="node4" href="users.html" target="_top" title="users" alt="" coords="619,32,985,835">
-<area shape="rect" id="node5" href="companies.html" target="_top" title="companies" alt="" coords="315,17,575,135">
+<area shape="rect" id="node1" href="users.html" target="_top" title="users" alt="" coords="315,5,648,309">
+<area shape="rect" id="node2" href="password_reset_tokens.html" target="_top" title="password_reset_tokens" alt="" coords="5,67,271,184">
 </map>
                                         <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/users.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
-                                    </div>
-                                    <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
-                                        <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="profiles.html" target="_top" title="profiles" alt="" coords="375,216,515,304">
-<area shape="rect" id="node2" href="password_reset_tokens.html" target="_top" title="password_reset_tokens" alt="" coords="5,252,271,340">
-<area shape="rect" id="node3" href="sequences.html" target="_top" title="sequences" alt="" coords="721,5,883,93">
-<area shape="rect" id="node4" href="companies.html" target="_top" title="companies" alt="" coords="315,32,575,149">
-<area shape="rect" id="node5" href="user_locations.html" target="_top" title="user_locations" alt="" coords="1029,477,1223,653">
-<area shape="rect" id="node6" href="prefectures.html" target="_top" title="prefectures" alt="" coords="716,931,888,1019">
-<area shape="rect" id="node7" href="users.html" target="_top" title="users" alt="" coords="619,111,985,913">
-</map>
-                                        <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/users.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                 </div>
                             </div>

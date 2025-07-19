@@ -40,12 +40,20 @@ class IndexAction
                 });
             });
         });
-        $users = QueryBuilder::for(
-            User::with([
-                'roles',
+        // $users = QueryBuilder::for(
+        //     User::with([
+        //         'roles',
+        //         // 'servicePlan',
+        //     ])->where('role', '!=', RoleType::SYSTEM_ADMIN)
+        // )
+
+        /** @phpstan-ignore-next-line  */
+        $users = QueryBuilder::for(User::class)
+            ->with([
+                'roles'
                 // 'servicePlan',
-            ])->where('role', '!=', RoleType::SYSTEM_ADMIN)
-        )
+            ])
+            ->where('role', '!=', RoleType::SYSTEM_ADMIN)
             // ->withTrashed()
             ->defaultSort('-id')
             ->allowedSorts([
